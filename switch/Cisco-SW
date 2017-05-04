@@ -1,0 +1,41 @@
+# Basic Cisco Switch CookBook
+
+#Save config
+copy run start
+
+#Clean config
+clear por dyn
+
+#Reset 
+erase startup-config
+delete vlan.dat
+
+
+#Set password
+password [pwd]	      #pwd for login
+enable secret [pwd]   #pwd for enable right
+
+##console 0
+line console 0
+password [pwd]
+exec-timeout 30 30	#timeout 30 mins,outof ena 30 sec. 0 0 never timeout
+
+##telnet
+line vty 0 4
+password [pwd]
+exec-timeout 30 30
+login
+
+
+#connect 
+telnet host-ip
+
+#Web View
+ip http port [port-num]
+ip http access-class [ACL-num 0~99]
+ip http auth enable 
+http://[IP:PORT]
+
+
+
+#
