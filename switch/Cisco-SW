@@ -38,4 +38,50 @@ http://[IP:PORT]
 
 
 
-#
+#Vlan
+switch#vlan database                ；进入VLAN设置
+switch(vlan)#vlan 2                 ；建VLAN 2
+switch(vlan)#vlan 3 name vlan3               ；建VLAN 3并命名为vlan3
+switch(vlan)#no vlan 2                 ；删vlan 2
+
+switch(config)#int f0/1               ；进入端口1
+switch(config)#speed 100               设置该端口速率为100mb/s (10/auto)
+switch(config)#duplex full               设置该端口为全双工(auto/half)
+switch(config)#description TO_PC1               这是该端口描述为TO_PC1
+
+switch(config-if)#switchport access vlan 2               当前端口加入vlan 2
+switch(config-if)#switchport mode trunk                  设置为trunk模式(access模式)
+switch(config-if)#switchport trunk allowed vlan 1，2     设置允许的vlan
+switch(config-if)#switchport trunk encap dot1q           设置vlan 中继
+
+switch(config)#vtp domain vtpserver               设置vtp域名相同
+switch(config)#vtp password               设置发vtp密码
+switch(config)#vtp server               设置vtp服务器模式
+switch(config)#vtp client               设置vtp客户机模式
+
+              
+              
+
+#Gateway,DNS
+switch(config)#interface vlan 1               进入vlan 1
+switch(config-if)#ip address 192.168.1.1 255.255.255.0               设置IP地址
+
+switch(config)#ip default-gateway 192.168.1.6               设置默认网关
+switch(config)#ip domain-name cisco.com               设置域名
+switch(config)#ip name-server 192.168.1.18               设置域名服务器
+
+switch(config)#mac-address-table aging-time 100               设置超时时间为100ms
+switch(config)#mac-address-table permanent 0000.0c01.bbcc f0/3               加入永久地址在f0/3端口
+switch(config)#mac-address-table restricted static 0000.0c02.bbcc f0/6 f0/7 加入静态地址目标端口f0/6源端口f0/7
+switch(config)#end
+switch#show mac-address-table               查看整个MAC地址表
+switch#clear mac-address-table restricted static               清除限制性静态地址
+
+
+
+
+
+
+
+
+
